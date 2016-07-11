@@ -78,20 +78,20 @@ controller.hears(['hungry'], ['direct_message', 'direct_mention', 'mention'], (b
     console.log('someone is hungry...');
     convo.say('beep boop you hungry son?');
 
-    askWhere = (response, convo) => {
-      convo.ask('Where are you?', (response, convo) => {
-        console.log(response);
-        location = response.text;
+    askWhere = (response1, convo1) => {
+      convo.ask('Where are you?', (response2, convo2) => {
+        console.log(response2);
+        location = response2.text;
         convo.say(`Okay, I'll look for food in ${location}.`);
-        askType(response, convo);
+        askType(response2, convo2);
         convo.next();
       });
     };
 
-    askType = (response, convo) => {
-      convo.ask('What kind of food are you in the mood for?', (response, convo) => {
-        console.log(response);
-        foodType = response.text;
+    askType = (response3, convo3) => {
+      convo.ask('What kind of food are you in the mood for?', (response4, convo4) => {
+        console.log(response4);
+        foodType = response4.text;
         convo.say(`Okay, searching for ${foodType} in ${location}.`);
 
         yelp.search({ term: `${foodType}`, location: `${location}`, actionlinks: 'true' })
