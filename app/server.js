@@ -33,6 +33,10 @@ controller.setupWebserver(process.env.PORT || 3001, (err, webserver) => {
   });
 });
 
+controller.on('outgoing_webhook', (bot, message) => {
+  bot.replyPublic(message, 'I\'m up!');
+});
+
 
 // example hello response
 controller.hears(['hello', 'hi', 'howdy'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
@@ -45,6 +49,7 @@ controller.hears(['hello', 'hi', 'howdy'], ['direct_message', 'direct_mention', 
   });
 });
 
+// food request
 controller.hears(['food'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
   bot.reply(message, 'food!');
 
@@ -67,6 +72,7 @@ controller.hears(['hungry'], ['direct_message', 'direct_mention', 'mention'], (b
   let askType;
   let location;
   let foodType;
+
   // start a conversation to handle this response.
   bot.startConversation(message, (err, convo) => {
     console.log('someone is hungry...');
@@ -87,19 +93,46 @@ controller.hears(['hungry'], ['direct_message', 'direct_mention', 'mention'], (b
         console.log(response);
         foodType = response.text;
         convo.say(`Okay, searching for ${foodType} in ${location}.`);
-        convo.next();
 
-        yelp.search({ term: `${foodType}`, location: `${location}` })
+        yelp.search({ term: `${foodType}`, location: `${location}`, actionlinks: 'true' })
         .then((data) => {
           console.log(data);
           data.businesses.forEach(business => {
             console.log(business.name);
-            bot.reply(message, business.name);
+
+            bot.reply(message, {
+              username: 'codbot',
+              // text: `${business.name}, ${business.display_phone}, Rating: ${business.rating}/5`,
+              attachments: [
+                {
+                  fallback: 'To be useful, I need you to invite me in a channel.',
+                  title: business.name,
+                  title_link: business.url,
+                  text: business.snippet_text,
+                  color: '#7CD197',
+                  thumb_url: business.image_url,
+
+                  fields: [
+                    {
+                      title: 'Rating',
+                      value: `${business.rating}/5`,
+                      short: true,
+                    },
+                    {
+                      title: 'Phone',
+                      value: business.display_phone,
+                      short: true,
+                    },
+                  ],
+                },
+              ],
+            });
           });
         })
         .catch((err) => {
           console.error(err);
         });
+        convo.next();
       });
     };
   });
