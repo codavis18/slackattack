@@ -34,7 +34,7 @@ controller.setupWebserver(process.env.PORT || 3001, (err, webserver) => {
 });
 
 controller.on('outgoing_webhook', (bot, message) => {
-  bot.replyPublic(message, 'I\'m up!');
+  bot.replyPublic(message, 'ayy');
 });
 
 
