@@ -1,5 +1,5 @@
 # Make a Slack Bot!
 
-![](imgs/screen1.tiff)
-![](imgs/screen2.tiff)
-![](imgs/screen3.tiff)
+![](imgs/screen1.png)
+![](imgs/screen2.png)
+![](imgs/screen3.png)
