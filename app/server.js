@@ -3,8 +3,11 @@ import botkit from 'botkit';
 const Yelp = require('yelp');
 const SpotifyWebApi = require('spotify-web-api-node');
 
+// credentials are optional
 const spotifyApi = new SpotifyWebApi({
-  accessToken: 'njd9wng4d0ycwnn3g4d1jm30yig4d27iom5lg4d3',
+  clientId: process.env.SPOTIFY_CLIENT_ID,
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+  redirectUri: 'http://www.example.com/callback',
 });
 
 const yelp = new Yelp({
