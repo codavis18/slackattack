@@ -34,7 +34,7 @@ controller.setupWebserver(process.env.PORT || 3001, (err, webserver) => {
 });
 
 controller.on('outgoing_webhook', (bot, message) => {
-  bot.replyPublic(message, 'ayy');
+  bot.replyPublic(message, '<http://i.giphy.com/AEpaVDTAop4TC.gif>');
 });
 
 
@@ -49,24 +49,23 @@ controller.hears(['hello', 'hi', 'howdy'], ['direct_message', 'direct_mention', 
   });
 });
 
-// food request
-controller.hears(['food'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
-  bot.reply(message, 'food!');
+// // food request
+// controller.hears(['food'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
+//   bot.reply(message, 'food!');
+//   yelp.search({ term: 'food', location: 'Montreal' })
+//   .then((data) => {
+//     console.log(data);
+//     data.businesses.forEach(business => {
+//       console.log(business.name);
+//       bot.reply(message, business.name);
+//     });
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });
+// });
 
-  yelp.search({ term: 'food', location: 'Montreal' })
-  .then((data) => {
-    console.log(data);
-    data.businesses.forEach(business => {
-      console.log(business.name);
-      bot.reply(message, business.name);
-    });
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-});
-
-
+// food
 controller.hears(['hungry'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
   let askWhere;
   let askType;
@@ -76,7 +75,7 @@ controller.hears(['hungry'], ['direct_message', 'direct_mention', 'mention'], (b
   // start a conversation to handle this response.
   bot.startConversation(message, (err, convo) => {
     console.log('someone is hungry...');
-    convo.say('beep boop you hungry son?');
+    convo.say('beep boop who\'s hungry?');
 
     askWhere = (response1, convo1) => {
       convo.ask('Where are you?', (response2, convo2) => {
