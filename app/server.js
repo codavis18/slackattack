@@ -136,6 +136,7 @@ controller.hears(['help'], ['direct_message', 'direct_mention', 'mention'], (bot
   bot.reply(message, 'I\'m good at figuring out what to eat. If you want food, say something like \'hungry\', or \'food\'.');
 });
 
+// adapted from https://github.com/thelinmichael/spotify-web-api-node
 controller.hears(['bored', 'music', 'listen'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
   spotifyApi.getFeaturedPlaylists({ limit: 3, offset: 1, country: 'SE', locale: 'sv_SE', timestamp: '2014-10-23T09:00:00' })
     .then((data) => {
