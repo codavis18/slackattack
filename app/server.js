@@ -146,3 +146,8 @@ controller.hears(['bored', 'music', 'listen'], ['direct_message', 'direct_mentio
       console.log('Something went wrong!', err);
     });
 });
+
+// use regex to catch all other messages
+controller.hears(['.*'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
+  bot.reply(message, 'Huh? Try that again. If you need help, say \'help\'.');
+});
