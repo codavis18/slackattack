@@ -122,7 +122,7 @@ controller.hears(['hungry', 'food', 'starving'], ['direct_message', 'direct_ment
   bot.startConversation(message, askWhere);
 });
 
-
+// help messages
 controller.hears(['help'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
   bot.reply(message, 'Hey, looks like you\'re stuck.');
   bot.reply(message, 'I\'m good at figuring out what to eat. If you want food, say something like \'hungry\', or \'food\'.');
