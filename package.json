@@ -17,6 +17,7 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-2": "^6.5.0",
     "botkit": "^0.2.2",
+    "spotify-web-api-node": "^2.3.2",
     "yelp": "^1.0.1"
   },
   "devDependencies": {

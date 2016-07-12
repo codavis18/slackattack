@@ -1,6 +1,9 @@
 // example bot
 import botkit from 'botkit';
 const Yelp = require('yelp');
+const SpotifyWebApi = require('spotify-web-api-node');
+
+const spotifyApi = new SpotifyWebApi();
 
 const yelp = new Yelp({
   consumer_key: process.env.YELP_CONSUMER_KEY,
@@ -126,4 +129,14 @@ controller.hears(['hungry', 'food', 'starving'], ['direct_message', 'direct_ment
 controller.hears(['help'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
   bot.reply(message, 'Hey, looks like you\'re stuck.');
   bot.reply(message, 'I\'m good at figuring out what to eat. If you want food, say something like \'hungry\', or \'food\'.');
+});
+
+controller.hears(['bored', 'music', 'listen'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
+  spotifyApi.getFeaturedPlaylists({ limit: 3, offset: 1, country: 'SE', locale: 'sv_SE', timestamp: '2014-10-23T09:00:00' })
+    .then((data) => {
+      console.log(data.body);
+    })
+    .catch((err) => {
+      console.log('Something went wrong!', err);
+    });
 });
